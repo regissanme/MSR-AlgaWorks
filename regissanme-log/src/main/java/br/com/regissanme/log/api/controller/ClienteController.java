@@ -3,6 +3,7 @@ package br.com.regissanme.log.api.controller;
 import br.com.regissanme.log.domain.model.Cliente;
 import br.com.regissanme.log.domain.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,8 +48,9 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> salvar(@Valid @RequestBody Cliente cliente) {
-        return ResponseEntity.created(null).body(clienteService.salvar(cliente));
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cliente salvar(@Valid @RequestBody Cliente cliente) {
+        return clienteService.salvar(cliente);
     }
 
     @PutMapping("/{id}")

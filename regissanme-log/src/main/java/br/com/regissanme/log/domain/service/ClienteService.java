@@ -43,7 +43,8 @@ public class ClienteService {
     }
 
     public Cliente buscarPorId(Long clienteId) {
-        return clienteRepository.findById(clienteId).orElse(null);
+        return clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new NegocioException("O cliente informado não existe!"));
     }
 
     public List<Cliente> buscarPorNome(String nome) {
