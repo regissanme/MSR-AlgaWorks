@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Projeto: regissanme-log
@@ -42,9 +43,8 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Cliente buscarPorId(Long clienteId) {
-        return clienteRepository.findById(clienteId)
-                .orElseThrow(() -> new NegocioException("O cliente informado não existe!"));
+    public Optional<Cliente> buscarPorId(Long clienteId) {
+        return clienteRepository.findById(clienteId);
     }
 
     public List<Cliente> buscarPorNome(String nome) {

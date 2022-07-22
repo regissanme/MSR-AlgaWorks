@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Projeto: regissanme-log
@@ -27,13 +29,22 @@ public class EntregaService {
 
     @Transactional
     public Entrega solicitar(Entrega entrega) {
-        Cliente cliente = clienteService.buscarPorId(entrega.getCliente().getId());
+        Cliente cliente = clienteService.buscarPorId(entrega.getCliente().getId())
+                .orElseThrow(()->new NegocioException("Cliente não encontrdo!"));
 
         entrega.setCliente(cliente);
         entrega.setDataPedido(LocalDateTime.now());
         entrega.setStatusEntrega(StatusEntrega.PENDENTE);
 
         return entregaRepository.save(entrega);
+    }
+
+    public List<Entrega> listar(){
+        return entregaRepository.findAll();
+    }
+
+    public Optional<Entrega> buscarPorId(Long id){
+        return entregaRepository.findById(id);
     }
 
 }

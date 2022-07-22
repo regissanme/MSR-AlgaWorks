@@ -31,11 +31,8 @@ public class ClienteController {
 
     @GetMapping("/{clienteId}")
     public ResponseEntity<Cliente> findById(@PathVariable Long clienteId) {
-        Cliente cliente = clienteService.buscarPorId(clienteId);
-        if(cliente == null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(cliente);
+        Optional<Cliente> optCliente = clienteService.buscarPorId(clienteId);
+        return optCliente.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/nome={nomeCliente}")
