@@ -4,13 +4,12 @@ import br.com.regissanme.log.domain.exceptions.NegocioException;
 import br.com.regissanme.log.domain.model.Cliente;
 import br.com.regissanme.log.domain.model.Entrega;
 import br.com.regissanme.log.domain.model.StatusEntrega;
-import br.com.regissanme.log.domain.repository.ClienteRepository;
 import br.com.regissanme.log.domain.repository.EntregaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +32,7 @@ public class EntregaService {
                 .orElseThrow(()->new NegocioException("Cliente não encontrdo!"));
 
         entrega.setCliente(cliente);
-        entrega.setDataPedido(LocalDateTime.now());
+        entrega.setDataPedido(OffsetDateTime.now());
         entrega.setStatusEntrega(StatusEntrega.PENDENTE);
 
         return entregaRepository.save(entrega);

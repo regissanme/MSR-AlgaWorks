@@ -1,9 +1,14 @@
 package br.com.regissanme.log.api.controller;
 
+import br.com.regissanme.log.api.mapper.EntregaMapper;
+import br.com.regissanme.log.api.model.DestinatarioModel;
+import br.com.regissanme.log.api.model.EntregaModel;
+import br.com.regissanme.log.api.model.input.EntregaInput;
 import br.com.regissanme.log.domain.model.Entrega;
 import br.com.regissanme.log.domain.repository.EntregaRepository;
 import br.com.regissanme.log.domain.service.EntregaService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,23 +29,25 @@ import java.util.Optional;
 public class EntregaController {
 
     private EntregaService entregaService;
+    private EntregaMapper entregaMapper;
 
     @GetMapping
-    public List<Entrega> listar(){
-        return entregaService.listar();
+    public List<EntregaModel> listar() {
+        return entregaMapper.toCollectionModel(entregaService.listar());
     }
 
     @PostMapping
-    public Entrega solicitar(@Valid @RequestBody Entrega entrega) {
-        return entregaService.solicitar(entrega);
+    public EntregaModel solicitar(@Valid @RequestBody EntregaInput entregaInput) {
+        return entregaMapper.toModel(entregaService.solicitar(entregaMapper.toEntity(entregaInput)));
     }
 
     @GetMapping("/{entregaId}")
-    public ResponseEntity<Entrega> buscarPorId(@PathVariable Long entregaId) {
-        Optional<Entrega> optEntrega = entregaService.buscarPorId(entregaId);
-        return optEntrega.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
+    public ResponseEntity<EntregaModel> buscarPorId(@PathVariable Long entregaId) {
 
+        return entregaService.buscarPorId(entregaId)
+                .map(entrega -> ResponseEntity.ok(entregaMapper.toModel(entrega)))
+                .orElse(ResponseEntity.notFound().build());
+    }
 
 
 }
