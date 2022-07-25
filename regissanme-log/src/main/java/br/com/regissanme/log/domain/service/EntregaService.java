@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Projeto: regissanme-log
@@ -30,7 +29,7 @@ public class EntregaService {
     @Transactional
     public Entrega solicitar(Entrega entrega) {
         Cliente cliente = clienteService.buscarPorId(entrega.getCliente().getId())
-                .orElseThrow(()->new NegocioException("Cliente não encontrdo!"));
+                .orElseThrow(() -> new NegocioException("Cliente não encontrdo!"));
 
         entrega.setCliente(cliente);
         entrega.setDataPedido(OffsetDateTime.now());
@@ -39,15 +38,15 @@ public class EntregaService {
         return entregaRepository.save(entrega);
     }
 
-    public List<Entrega> listar(){
+    public List<Entrega> listar() {
         return entregaRepository.findAll();
     }
 
-    public Entrega buscarPorId(Long id){
-        return entregaRepository.findById(id).orElseThrow(()-> new EntidadeNaoEncontradaException("Entrega não Encontrada!"));
+    public Entrega buscarPorId(Long id) {
+        return entregaRepository.findById(id).orElseThrow(() -> new EntidadeNaoEncontradaException("Entrega não Encontrada!"));
     }
 
-    public void finalizarEntrega(Long entregaId){
+    public void finalizarEntrega(Long entregaId) {
         Entrega entrega = buscarPorId(entregaId);
         entrega.finalizar();
 

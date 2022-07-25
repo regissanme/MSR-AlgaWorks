@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         List<Problema.Campo> campos = new ArrayList<>();
 
-        for(ObjectError error: ex.getBindingResult().getAllErrors()) {
+        for (ObjectError error : ex.getBindingResult().getAllErrors()) {
             String nome = ((FieldError) error).getField();
             String mensagem = messageSource.getMessage(error, LocaleContextHolder.getLocale());
             campos.add(new Problema.Campo(nome, mensagem));
@@ -55,7 +54,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(NegocioException.class)
-    public ResponseEntity<Object> handleNegocio(NegocioException negocioException, WebRequest request){
+    public ResponseEntity<Object> handleNegocio(NegocioException negocioException, WebRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         Problema problema = new Problema();
         problema.setStatus(status.value());
@@ -67,7 +66,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EntidadeNaoEncontradaException.class)
-    public ResponseEntity<Object> handleEntidadeNaoEncontrada(NegocioException negocioException, WebRequest request){
+    public ResponseEntity<Object> handleEntidadeNaoEncontrada(NegocioException negocioException, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         Problema problema = new Problema();
         problema.setStatus(status.value());

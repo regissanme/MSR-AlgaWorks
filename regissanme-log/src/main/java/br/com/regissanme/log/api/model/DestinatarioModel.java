@@ -3,9 +3,6 @@ package br.com.regissanme.log.api.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
-
 /**
  * Projeto: regissanme-log
  * Desenvolvedor: Reginaldo Santos de Medeiros (regissanme)

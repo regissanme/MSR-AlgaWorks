@@ -3,7 +3,6 @@ package br.com.regissanme.log.api.controller;
 import br.com.regissanme.log.api.mapper.OcorrenciaMapper;
 import br.com.regissanme.log.api.model.OcorrenciaModel;
 import br.com.regissanme.log.api.model.input.OcorrenciaInput;
-import br.com.regissanme.log.domain.model.Entrega;
 import br.com.regissanme.log.domain.service.OcorrenciaService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,7 +35,7 @@ public class OcorrenciaController {
     }
 
     @GetMapping
-    public List<OcorrenciaModel> listar(@PathVariable Long entregaId){
+    public List<OcorrenciaModel> listar(@PathVariable Long entregaId) {
         return ocorrenciaMapper.toCollectionModel(ocorrenciaService.findAllByEntrega(entregaId));
     }
 }

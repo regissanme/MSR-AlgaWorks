@@ -62,11 +62,11 @@ public class Entrega {
         setDataFinalizacao(OffsetDateTime.now());
     }
 
-    public boolean podeSerFinalizada(){
+    public boolean podeSerFinalizada() {
         return StatusEntrega.PENDENTE.equals(getStatusEntrega());
     }
 
-    public boolean naoPodeSerFinalizada(){
+    public boolean naoPodeSerFinalizada() {
         return !podeSerFinalizada();
     }
 }

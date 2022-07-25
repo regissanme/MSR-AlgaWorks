@@ -30,7 +30,7 @@ public class EntregaMapper {
         return modelMapper.map(entregaInput, Entrega.class);
     }
 
-    public List<EntregaModel> toCollectionModel(List<Entrega> entregas){
+    public List<EntregaModel> toCollectionModel(List<Entrega> entregas) {
         return entregas.stream().map(this::toModel).collect(Collectors.toList());
     }
 }

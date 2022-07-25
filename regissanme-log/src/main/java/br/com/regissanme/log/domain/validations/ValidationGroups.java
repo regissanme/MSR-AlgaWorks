@@ -8,5 +8,6 @@ package br.com.regissanme.log.domain.validations;
  */
 public interface ValidationGroups {
 
-    interface ClienteId{}
+    interface ClienteId {
+    }
 }

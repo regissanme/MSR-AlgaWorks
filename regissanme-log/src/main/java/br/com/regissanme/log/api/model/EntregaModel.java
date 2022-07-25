@@ -1,6 +1,5 @@
 package br.com.regissanme.log.api.model;
 
-import br.com.regissanme.log.domain.model.Destinatario;
 import br.com.regissanme.log.domain.model.StatusEntrega;
 import lombok.Getter;
 import lombok.Setter;

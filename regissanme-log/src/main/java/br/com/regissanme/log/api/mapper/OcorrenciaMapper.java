@@ -1,11 +1,8 @@
 package br.com.regissanme.log.api.mapper;
 
-import br.com.regissanme.log.api.model.EntregaModel;
 import br.com.regissanme.log.api.model.OcorrenciaModel;
-import br.com.regissanme.log.domain.model.Entrega;
 import br.com.regissanme.log.domain.model.Ocorrencia;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +25,7 @@ public class OcorrenciaMapper {
         return modelMapper.map(ocorrencia, OcorrenciaModel.class);
     }
 
-    public List<OcorrenciaModel> toCollectionModel(List<Ocorrencia> ocorrencias){
+    public List<OcorrenciaModel> toCollectionModel(List<Ocorrencia> ocorrencias) {
         return ocorrencias.stream()
                 .map(this::toModel)
                 .collect(Collectors.toList());

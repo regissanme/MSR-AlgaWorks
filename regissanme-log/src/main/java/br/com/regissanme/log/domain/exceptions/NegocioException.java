@@ -8,7 +8,7 @@ package br.com.regissanme.log.domain.exceptions;
  */
 public class NegocioException extends RuntimeException {
 
-    public NegocioException(String message){
+    public NegocioException(String message) {
         super(message);
     }
 }

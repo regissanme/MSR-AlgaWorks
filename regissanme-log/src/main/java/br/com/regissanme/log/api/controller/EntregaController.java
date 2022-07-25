@@ -46,7 +46,7 @@ public class EntregaController {
 
     @PutMapping("/{entregaId}/finalizacao")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void finalizarEntrega(@PathVariable Long entregaId){
+    public void finalizarEntrega(@PathVariable Long entregaId) {
         entregaService.finalizarEntrega(entregaId);
     }
 
