@@ -1,5 +1,6 @@
 package br.com.regissanme.log.domain.service;
 
+import br.com.regissanme.log.domain.exceptions.EntidadeNaoEncontradaException;
 import br.com.regissanme.log.domain.exceptions.NegocioException;
 import br.com.regissanme.log.domain.model.Cliente;
 import br.com.regissanme.log.domain.model.Entrega;
@@ -42,8 +43,15 @@ public class EntregaService {
         return entregaRepository.findAll();
     }
 
-    public Optional<Entrega> buscarPorId(Long id){
-        return entregaRepository.findById(id);
+    public Entrega buscarPorId(Long id){
+        return entregaRepository.findById(id).orElseThrow(()-> new EntidadeNaoEncontradaException("Entrega não Encontrada!"));
+    }
+
+    public void finalizarEntrega(Long entregaId){
+        Entrega entrega = buscarPorId(entregaId);
+        entrega.finalizar();
+
+        entregaRepository.save(entrega);
     }
 
 }

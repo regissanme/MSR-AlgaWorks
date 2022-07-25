@@ -1,21 +1,17 @@
 package br.com.regissanme.log.api.controller;
 
 import br.com.regissanme.log.api.mapper.EntregaMapper;
-import br.com.regissanme.log.api.model.DestinatarioModel;
 import br.com.regissanme.log.api.model.EntregaModel;
 import br.com.regissanme.log.api.model.input.EntregaInput;
 import br.com.regissanme.log.domain.model.Entrega;
-import br.com.regissanme.log.domain.repository.EntregaRepository;
 import br.com.regissanme.log.domain.service.EntregaService;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Projeto: regissanme-log
@@ -44,9 +40,14 @@ public class EntregaController {
     @GetMapping("/{entregaId}")
     public ResponseEntity<EntregaModel> buscarPorId(@PathVariable Long entregaId) {
 
-        return entregaService.buscarPorId(entregaId)
-                .map(entrega -> ResponseEntity.ok(entregaMapper.toModel(entrega)))
-                .orElse(ResponseEntity.notFound().build());
+        Entrega entrega = entregaService.buscarPorId(entregaId);
+        return ResponseEntity.ok(entregaMapper.toModel(entrega));
+    }
+
+    @PutMapping("/{entregaId}/finalizacao")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void finalizarEntrega(@PathVariable Long entregaId){
+        entregaService.finalizarEntrega(entregaId);
     }
 
 

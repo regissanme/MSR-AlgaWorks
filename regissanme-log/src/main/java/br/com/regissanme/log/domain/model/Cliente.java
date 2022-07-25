@@ -30,7 +30,6 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    @NotNull(groups = ValidationGroups.ClienteId.class)
     private Long id;
 
     @NotBlank
